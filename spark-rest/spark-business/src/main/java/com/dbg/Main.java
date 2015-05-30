@@ -1,42 +1,25 @@
 package com.dbg;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import com.dbg.model.test.Test;
+import com.dbg.controller.test.TestController;
 
 public class Main {
 
-	public enum PersistenceManager {
-		INSTANCE;
-
-		private EntityManagerFactory emFactory;
-
-		private PersistenceManager() {
-			emFactory = Persistence.createEntityManagerFactory("jpa");
-		}
-
-		public EntityManager getEntityManager() {
-			return emFactory.createEntityManager();
-		}
-
-		public void close() {
-			emFactory.close();
-		}
-	}
+	private static TestController testController;
 
 	public static void main(String[] args) {
-		Test test = new Test();
-		test.setName("prueba");
+		init();
+	}
 
-		EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-		em.getTransaction().begin();
-		em.persist(test);
-		em.getTransaction().commit();
+	private static void init() {
+		setTestController(new TestController());
+	}
 
-		em.close();
-		PersistenceManager.INSTANCE.close();
+	public static TestController getTestController() {
+		return testController;
+	}
+
+	public static void setTestController(TestController testController) {
+		Main.testController = testController;
 	}
 
 }
