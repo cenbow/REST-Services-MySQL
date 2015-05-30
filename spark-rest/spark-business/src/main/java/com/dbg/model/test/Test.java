@@ -29,4 +29,9 @@ public class Test {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Test [id=" + id + ", name=" + name + "]";
+	}
+
 }
